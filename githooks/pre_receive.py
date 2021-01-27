@@ -10,7 +10,8 @@ from sys import stdout, stderr
 from traceback import print_exc
 
 from githooks.base_check import CheckState, prepare_checks
-from githooks.config import checks, DEV_MODE
+from githooks.checks import checks
+from githooks.config import DEV_MODE
 from githooks.git import Commit
 from githooks.utils import iter_buffer
 
