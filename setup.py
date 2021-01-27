@@ -57,7 +57,6 @@ setup(
         "Operating System :: OS Independent",
         'Topic :: Software Development',
         'Topic :: Utilities',
-        'Topic :: Git',
     ],
     python_requires='>=3.6',
     install_requires=[
