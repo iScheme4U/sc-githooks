@@ -7,17 +7,33 @@ Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
 
+import os
+
 from setuptools import setup, find_packages
 
-from githooks import VERSION
 from githooks.config import checks
+
+
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    raise RuntimeError("Unable to find version string.")
+
 
 with open('README.rst') as fd:
     readme = fd.read()
 
 setup(
     name='sc-githooks',
-    version='.'.join(str(v) for v in VERSION),
+    version=get_version("githooks/__init__.py"),
     url='https://github.com/Scott-Lau/sc-githooks',
     packages=find_packages(),
     author='Scott Lau',
@@ -27,8 +43,7 @@ setup(
     description='Git pre-receive hook to check commits',
     long_description=readme,
     keywords=(
-            'syntax-checker git git-hook python ' +
-            ' '.join(c.args[0] for c in checks if hasattr(c, 'args'))
+            'git git-hook python pre-receive hook'
     ),
     entry_points={
         'console_scripts': [

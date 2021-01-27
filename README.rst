@@ -131,6 +131,9 @@ Version 0.1
     * Add file extensions check
     * Add file size check
 
+Version 0.1.1
+    * Unique source of version
+
 License
 -------
 
