@@ -11,8 +11,6 @@ import os
 
 from setuptools import setup, find_packages
 
-from githooks.config import checks
-
 
 def read(rel_path):
     here = os.path.abspath(os.path.dirname(__file__))
