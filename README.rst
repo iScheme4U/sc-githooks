@@ -58,18 +58,21 @@ Here is an example problem output::
 Configuration
 -------------
 
-See `config.py <githooks/config.py>`_ for more information.
-    * DEV_MODE
+You can copy `default.yml <tests/sample_config/default.yml>`_ to `~/.sc-githooks/production.yml`
+to initialize the production configuration.
+
+See `default.yml <tests/sample_config/default.yml>`_ for more information.
+    * dev.dev_mode
         * Whether this program is running in development mode
-    * COMMIT_SUMMARY_MAX_LENGTH
+    * commit_check.commit_summary_max_length
         * The warning threshold of the length of commit summary
-    * COMMIT_LINE_MAX_LENGTH
+    * commit_check.commit_line_max_length
         * The threshold of the max length of commit summary and other commit line
-    * BINARY_FILE_ILLEGAL_SUFFIXES
+    * commit_check.binary_file_illegal_suffixes
         * A list of illegal suffixes which cannot be committed to git repository
-    * LEGAL_BINARY_FILENAMES
+    * commit_check.legal_binary_filenames
         * A list of legal binary file names which can be committed to git repository
-    * COMMIT_FILE_MAX_SIZE
+    * commit_check.commit_file_max_size
         * The max size of a file that can be committed to git repository
 
 
@@ -103,11 +106,7 @@ IDE Integration
 Dependencies
 ------------
 
-The script has no dependencies on Python 3.4 or above.  The script executes
-the validation commands using the shell.  The necessary ones for checked
-repositories need to be installed separately.  See the complete list of
-commands on the `config.py <githooks/config.py>`_.  The commands which are not
-available on the ``PATH`` is not going to be used.
+* config42 0.4.4
 
 
 Testing
@@ -125,14 +124,16 @@ to test this inside a Git repository against last 50 commits::
 Changes
 -------
 
+Version 0.1.1
+    * Unique source of version
+    * Use `config42 <https://pypi.org/project/config42/>`_ to read configuration file
+    * Support specifying configurations through file
+
 Version 0.1
     * Initial version check commit
     * Add binary file check
     * Add file extensions check
     * Add file size check
-
-Version 0.1.1
-    * Unique source of version
 
 License
 -------

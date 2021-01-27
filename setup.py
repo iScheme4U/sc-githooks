@@ -41,7 +41,7 @@ setup(
     description='Git pre-receive hook to check commits',
     long_description=readme,
     keywords=(
-            'git git-hook python pre-receive hook'
+        'git git-hook python pre-receive hook'
     ),
     entry_points={
         'console_scripts': [
@@ -50,8 +50,17 @@ setup(
     },
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        'Topic :: Software Development',
+        'Topic :: Utilities',
+        'Topic :: Git',
     ],
-    python_requires='>=3.6'
+    python_requires='>=3.6',
+    install_requires=[
+        'config42>=0.4.4',
+    ],
 )

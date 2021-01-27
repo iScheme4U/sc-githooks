@@ -1,0 +1,3 @@
+dev:
+  # 是否开发模式
+  dev_mode: True

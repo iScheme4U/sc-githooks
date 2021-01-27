@@ -11,7 +11,7 @@ from traceback import print_exc
 
 from githooks.base_check import CheckState, prepare_checks
 from githooks.checks import checks
-from githooks.config import DEV_MODE
+from githooks.config import config
 from githooks.git import Commit
 from githooks.utils import iter_buffer
 
@@ -30,7 +30,13 @@ class Runner(object):
         # way externally, anyway.  We only have a limit to avoid consuming
         # too many processes.
         # sc: add DEV_MODE
-        if DEV_MODE:
+        dev_mode = False
+        try:
+            dev_mode = config.get("dev.dev_mode")
+        except:
+            pass
+        print('program is running in development mode: {}'.format(dev_mode))
+        if dev_mode:
             for check in self.expand_checks(checks):
                 check.print_problems()
                 assert check.state >= CheckState.DONE

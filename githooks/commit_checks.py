@@ -5,7 +5,7 @@ Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
 
-from githooks import config
+from githooks.config import config
 from githooks.base_check import BaseCheck, Severity
 from githooks.git import Commit
 
@@ -61,10 +61,10 @@ class CheckCommitMessage(CommitCheck):
                 '行 {}: 左边包含空格字符'.format(line_number)
             )
 
-        if len(line) > config.COMMIT_LINE_MAX_LENGTH:
+        if len(line) > config.get("commit_check.commit_line_max_length"):
             yield (
                 Severity.WARNING,
-                '行 {}: 超过 {} 字符'.format(line_number, config.COMMIT_LINE_MAX_LENGTH)
+                '行 {}: 超过 {} 字符'.format(line_number, config.get("commit_check.commit_line_max_length"))
             )
 
 
@@ -143,10 +143,10 @@ class CheckCommitSummary(CommitCheck):
             return
 
         rest_len = len(rest)
-        if rest_len > config.COMMIT_LINE_MAX_LENGTH:
-            yield Severity.ERROR, "提交标题不能超过 {} 个字符".format(config.COMMIT_LINE_MAX_LENGTH)
-        elif rest_len > config.COMMIT_SUMMARY_MAX_LENGTH:
-            yield Severity.WARNING, "提交标题超过了 {} 个字符".format(config.COMMIT_SUMMARY_MAX_LENGTH)
+        if rest_len > config.get("commit_check.commit_line_max_length"):
+            yield Severity.ERROR, "提交标题不能超过 {} 个字符".format(config.get("commit_check.commit_line_max_length"))
+        elif rest_len > config.get("commit_check.commit_summary_max_length"):
+            yield Severity.WARNING, "提交标题超过了 {} 个字符".format(config.get("commit_check.commit_summary_max_length"))
 
         if '  ' in rest:
             yield Severity.WARNING, '存在多个空格字符'

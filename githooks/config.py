@@ -3,19 +3,45 @@
 Copyright (c) 2021 Scott Lau
 """
 
-# 是否开发模式
-DEV_MODE = False
-# DEV_MODE = True
+import os
 
-# 提交标题行最大长度
-COMMIT_SUMMARY_MAX_LENGTH = 50
-# 提交详细行最大行长度
-COMMIT_LINE_MAX_LENGTH = 80
+from config42 import ConfigManager
+from githooks.configs.default import DEFAULT_CONFIG
+from githooks.configs.development import DEV_CONFIG
 
-# 二进制文件黑名单（逗号分隔的后缀名清单，无需带.，通过后缀名控制）
-BINARY_FILE_ILLEGAL_SUFFIXES = "jar"
-# 二进制文件白名单（逗号分隔的区分大小写的文件名列表，这些二进制文件允许提交）
-LEGAL_BINARY_FILENAMES = "gradle-wrapper.jar,maven-wrapper.jar"
 
-# 提交文件最大大小(5MB)
-COMMIT_FILE_MAX_SIZE = 5242880
+class Config:
+
+    @staticmethod
+    def create():
+        # load defaults from defaults.py file
+        config = ConfigManager(defaults=DEFAULT_CONFIG)
+        # load defaults from home directory
+        config_file = os.path.join(os.path.expanduser('~'), '.sc-githooks/default.yml')
+        if os.path.exists(config_file):
+            config.set_many(ConfigManager(path=config_file))
+        # load environment configurations from environment variables
+        env_config = ConfigManager(prefix="SC_GITHOOKS")
+        config.set_many(env_config.as_dict())
+
+        environment = env_config.get("environment")
+        if environment is None:
+            # use production configuration if not specified environment
+            environment = "production"
+        if environment == "development":
+            config.set_many(DEV_CONFIG)
+        # load environment configurations from file
+        env_config_file = os.path.join(os.path.expanduser('~'), '.sc-githooks/{}.yml'.format(environment))
+        if os.path.exists(env_config_file):
+            config.set_many(ConfigManager(path=env_config_file).as_dict())
+        return config
+
+
+# =========================================
+#       INSTANCES
+# --------------------------------------
+try:
+    config = Config.create()
+
+except Exception as error:
+    print('WARN: {0}'.format(error))
