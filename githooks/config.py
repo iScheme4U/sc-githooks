@@ -14,10 +14,11 @@ class Config:
 
     @staticmethod
     def create():
+        config_directory = '.sc-githooks'
         # load defaults from defaults.py file
         config = ConfigManager(defaults=DEFAULT_CONFIG)
         # load defaults from home directory
-        config_file = os.path.join(os.path.expanduser('~'), '.sc-githooks/default.yml')
+        config_file = os.path.join(os.path.expanduser('~'), '{}/{}.yml'.format(config_directory, "default"))
         if os.path.exists(config_file):
             config.set_many(ConfigManager(path=config_file))
         # load environment configurations from environment variables
@@ -28,10 +29,11 @@ class Config:
         if environment is None:
             # use production configuration if not specified environment
             environment = "production"
+            config.set("environment", environment)
         if environment == "development":
             config.set_many(DEV_CONFIG)
         # load environment configurations from file
-        env_config_file = os.path.join(os.path.expanduser('~'), '.sc-githooks/{}.yml'.format(environment))
+        env_config_file = os.path.join(os.path.expanduser('~'), '{}/{}.yml'.format(config_directory, environment))
         if os.path.exists(env_config_file):
             config.set_many(ConfigManager(path=env_config_file).as_dict())
         return config
