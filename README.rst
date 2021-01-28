@@ -1,3 +1,7 @@
+.. image:: https://badge.fury.io/py/sc-githooks.svg
+    :target: https://badge.fury.io/py/sc-githooks
+.. image:: https://img.shields.io/pypi/pyversions/sc-githooks   :alt: PyPI - Python Version
+
 Git Pre-Receive Hook to Validate Commits
 ========================================
 
