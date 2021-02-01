@@ -5,15 +5,15 @@ Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
 
+import logging
 from fileinput import input
-from sys import stdout, stderr
-from traceback import print_exc
+from sys import stdout
 
 from githooks.base_check import CheckState, prepare_checks
 from githooks.checks import checks
 from githooks.config import config
 from githooks.git import Commit
-from githooks.utils import iter_buffer
+from githooks.utils import iter_buffer, log_init
 
 
 class Runner(object):
@@ -35,7 +35,7 @@ class Runner(object):
             dev_mode = config.get("dev.dev_mode")
         except:
             pass
-        print('program is running in development mode: {}'.format(dev_mode))
+        logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
         if dev_mode:
             for check in self.expand_checks(checks):
                 check.print_problems()
@@ -132,14 +132,13 @@ class Runner(object):
 
 def main():
     try:
+        log_init()
         state = Runner().run()
-    except Exception:
+    except Exception as e:
         # Flush the problems we have printed so far to avoid the traceback
         # appearing in between them.
         stdout.flush()
-        print(file=stderr)
-        print('An error occurred, but the commits are accepted.', file=stderr)
-        print_exc()
+        logging.getLogger(__name__).exception('An error occurred.', exc_info=e)
     else:
         if state >= CheckState.FAILED:
             return 1

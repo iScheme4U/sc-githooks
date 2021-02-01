@@ -129,6 +129,10 @@ to test this inside a Git repository against last 50 commits::
 Changes
 -------
 
+Version 0.1.2
+    * Fix a bug where cannot read default.yml configuration file
+    * Add logging
+
 Version 0.1.1
     * Unique source of version
     * Use `config42 <https://pypi.org/project/config42/>`_ to read configuration file
