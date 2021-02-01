@@ -111,7 +111,7 @@ IDE Integration
 Dependencies
 ------------
 
-* config42 0.4.4
+* sc-config 0.0.2
 
 
 Testing
@@ -128,6 +128,9 @@ to test this inside a Git repository against last 50 commits::
 
 Changes
 -------
+
+Version 0.1.4
+    * Update dependency
 
 Version 0.1.3
     * Using sc-config utility
