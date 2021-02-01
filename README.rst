@@ -129,6 +129,9 @@ to test this inside a Git repository against last 50 commits::
 Changes
 -------
 
+Version 0.1.3
+    * Using sc-config utility
+
 Version 0.1.2
     * Fix a bug where cannot read default.yml configuration file
     * Add logging

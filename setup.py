@@ -61,6 +61,6 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'config42>=0.4.4',
+        'sc-config>=0.0.2',
     ],
 )
