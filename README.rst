@@ -63,10 +63,10 @@ Here is an example problem output::
 Configuration
 -------------
 
-You can copy `default.yml <tests/sample_config/default.yml>`_ to `~/.sc-githooks/production.yml`
+You can copy `default.yml <https://github.com/Scott-Lau/sc-githooks/blob/master/githooks/tests/sample_config/default.yml>`_ to `~/.sc-githooks/production.yml`
 to initialize the production configuration.
 
-See `default.yml <tests/sample_config/default.yml>`_ for more information.
+Detailed explanation.
     * dev.dev_mode
         * Whether this program is running in development mode
     * commit_check.commit_summary_max_length
@@ -111,7 +111,8 @@ IDE Integration
 Dependencies
 ------------
 
-* sc-config 0.0.2
+* `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ >= 0.0.1
+* `sc-config <https://github.com/Scott-Lau/sc-config>`_ >= 0.0.2
 
 
 Testing
@@ -129,11 +130,14 @@ to test this inside a Git repository against last 50 commits::
 Changes
 -------
 
+Version 0.1.5
+    * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging
+
 Version 0.1.4
     * Update dependency
 
 Version 0.1.3
-    * Using sc-config utility
+    * Using `sc-config <https://github.com/Scott-Lau/sc-config>`_ utility
 
 Version 0.1.2
     * Fix a bug where cannot read default.yml configuration file

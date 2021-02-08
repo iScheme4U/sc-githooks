@@ -9,11 +9,13 @@ import logging
 from fileinput import input
 from sys import stdout
 
+from scutils import log_init
+
 from githooks.base_check import CheckState, prepare_checks
 from githooks.checks import checks
 from githooks.config import config
 from githooks.git import Commit
-from githooks.utils import iter_buffer, log_init
+from githooks.utils import iter_buffer
 
 
 class Runner(object):
