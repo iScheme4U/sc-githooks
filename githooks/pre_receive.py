@@ -7,7 +7,8 @@ Portions Copyright (c) 2021 Emre Hasegeli
 
 import logging
 from fileinput import input
-from sys import stdout
+from sys import stdout, stderr
+from traceback import print_exc
 
 from scutils import log_init
 
@@ -140,7 +141,9 @@ def main():
         # Flush the problems we have printed so far to avoid the traceback
         # appearing in between them.
         stdout.flush()
-        logging.getLogger(__name__).exception('An error occurred.', exc_info=e)
+        print(file=stderr)
+        print('An error occurred, but the commits are accepted.', file=stderr)
+        print_exc()
     else:
         if state >= CheckState.FAILED:
             return 1

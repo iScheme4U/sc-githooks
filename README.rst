@@ -23,6 +23,21 @@ repositories on your Git server::
 
     ln -s sc-pre-receive /home/git/repositories/myproject.git/hooks/pre-receive
 
+If you want all projects to be checked, then you need to do following steps:
+
+    #. On the GitLab server, navigate to the configured custom hook directory. The default is in the gitlab-shell directory.
+
+    #. The gitlab-shell hook directory for Omnibus installation is usually /opt/gitlab/embedded/service/gitlab-shell/hooks.
+
+    #. Create a new directory in this location. Depending on your hook, it will be either a pre-receive.d, post-receive.d,
+       or update.d directory.
+
+    #. Inside this new directory, add your hook like this::
+
+        cd /opt/gitlab/embedded/service/gitlab-shell/hooks
+        mkdir pre-receive.d
+        cd pre-receive.d
+        ln -s /usr/local/bin/sc-pre-receive pre-receive
 
 Features
 --------
@@ -63,8 +78,8 @@ Here is an example problem output::
 Configuration
 -------------
 
-You can copy `default.yml <https://github.com/Scott-Lau/sc-githooks/blob/master/githooks/tests/sample_config/default.yml>`_ to `~/.sc-githooks/production.yml`
-to initialize the production configuration.
+You can copy `default.yml <https://github.com/Scott-Lau/sc-githooks/blob/master/githooks/tests/sample_config/default.yml>`_
+to /var/opt/sc/.sc-githooks/production.yml to initialize the production configuration.
 
 Detailed explanation.
     * dev.dev_mode
@@ -111,8 +126,8 @@ IDE Integration
 Dependencies
 ------------
 
-* `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ >= 0.0.1
-* `sc-config <https://github.com/Scott-Lau/sc-config>`_ >= 0.0.2
+* `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ >= 0.0.2
+* `sc-config <https://github.com/Scott-Lau/sc-config>`_ >= 0.0.3
 
 
 Testing
@@ -129,6 +144,9 @@ to test this inside a Git repository against last 50 commits::
 
 Changes
 -------
+
+Version 0.1.6
+    * Upgrade dependencies
 
 Version 0.1.5
     * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging
