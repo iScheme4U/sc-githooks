@@ -5,12 +5,9 @@ Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
 
-import logging
 from fileinput import input
 from sys import stdout, stderr
 from traceback import print_exc
-
-from scutils import log_init
 
 from githooks.base_check import CheckState, prepare_checks
 from githooks.checks import checks
@@ -38,7 +35,6 @@ class Runner(object):
             dev_mode = config.get("dev.dev_mode")
         except:
             pass
-        logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
         if dev_mode:
             for check in self.expand_checks(checks):
                 check.print_problems()
@@ -135,7 +131,6 @@ class Runner(object):
 
 def main():
     try:
-        log_init()
         state = Runner().run()
     except Exception as e:
         # Flush the problems we have printed so far to avoid the traceback

@@ -126,7 +126,6 @@ IDE Integration
 Dependencies
 ------------
 
-* `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ >= 0.0.2
 * `sc-config <https://github.com/Scott-Lau/sc-config>`_ >= 0.0.3
 
 
@@ -147,6 +146,7 @@ Changes
 
 Version 0.1.6
     * Upgrade dependencies
+    * Remove logging
 
 Version 0.1.5
     * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging
