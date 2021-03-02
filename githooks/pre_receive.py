@@ -22,6 +22,15 @@ class Runner(object):
         self.changed_file_checks = dict()
 
     def run(self):
+        # check whether commit check is enabled
+        commit_check_is_enabled = False
+        try:
+            commit_check_is_enabled = config.get("commit_check.enabled")
+        except:
+            pass
+        if not commit_check_is_enabled:
+            return CheckState.DONE
+
         state = CheckState.NEW
 
         # We are buffering the checks to let them run parallel in

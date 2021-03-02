@@ -84,6 +84,8 @@ to /var/opt/sc/.sc-githooks/production.yml to initialize the production configur
 Detailed explanation.
     * dev.dev_mode
         * Whether this program is running in development mode
+    * commit_check.enabled
+        * Whether commit check is enabled
     * commit_check.commit_summary_max_length
         * The warning threshold of the length of commit summary
     * commit_check.commit_line_max_length
@@ -147,6 +149,7 @@ Changes
 Version 0.1.6
     * Upgrade dependencies
     * Remove logging
+    * Add switch commit_check.enabled to control whether or not commit check is enabled
 
 Version 0.1.5
     * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging

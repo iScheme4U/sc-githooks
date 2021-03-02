@@ -4,6 +4,8 @@ DEFAULT_CONFIG = {
         "dev_mode": False,
     },
     "commit_check": {
+        # 是否启动提交检查
+        "enabled": True,
         # 提交标题行最大长度
         "commit_summary_max_length": 50,
         # 提交详细行最大行长度
