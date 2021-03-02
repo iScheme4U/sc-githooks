@@ -150,6 +150,7 @@ Version 0.1.6
     * Upgrade dependencies
     * Remove logging
     * Add switch commit_check.enabled to control whether or not commit check is enabled
+    * Fix bug: error message is not shown in Gitlab web page
 
 Version 0.1.5
     * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging
