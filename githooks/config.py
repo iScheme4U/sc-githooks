@@ -3,11 +3,12 @@
 Copyright (c) 2021 Scott Lau
 """
 
-from sys import stderr
+from sys import stdout, stderr
 from traceback import print_exc
 
 from scconfig.config import Config
 
+from githooks.base_check import BaseCheck
 from githooks.configs.default import DEFAULT_CONFIG
 
 # =========================================
@@ -15,7 +16,8 @@ from githooks.configs.default import DEFAULT_CONFIG
 # --------------------------------------
 try:
     config = Config.create(project_name="sc-githooks", defaults=DEFAULT_CONFIG)
-except Exception as error:
+except Exception as e:
+    stdout.flush()
     print(file=stderr)
-    print('failed to read configuration', file=stderr)
+    print('{} failed to read configuration: {}'.format(BaseCheck.ERROR_MSG_PREFIX, e.message), file=stderr)
     print_exc()

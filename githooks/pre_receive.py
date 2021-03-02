@@ -9,7 +9,7 @@ from fileinput import input
 from sys import stdout, stderr
 from traceback import print_exc
 
-from githooks.base_check import CheckState, prepare_checks
+from githooks.base_check import CheckState, prepare_checks, BaseCheck
 from githooks.checks import checks
 from githooks.config import config
 from githooks.git import Commit
@@ -146,8 +146,9 @@ def main():
         # appearing in between them.
         stdout.flush()
         print(file=stderr)
-        print('An error occurred, but the commits are accepted.', file=stderr)
+        print('{} An error occurred: {}'.format(BaseCheck.ERROR_MSG_PREFIX, e.message), file=stderr)
         print_exc()
+        return 1
     else:
         if state >= CheckState.FAILED:
             return 1

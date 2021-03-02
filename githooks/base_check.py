@@ -59,6 +59,7 @@ class BaseCheck:
     """
     preferred_checks = []
     state = CheckState.NEW
+    ERROR_MSG_PREFIX = "GL-HOOK-ERR:"
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
@@ -87,11 +88,11 @@ class BaseCheck:
         header_printed = False
         for severity, problem in self.evaluate_problems():
             if not header_printed:
-                print('=== {} ==='.format(self))
+                print('{} === {} ==='.format(BaseCheck.ERROR_MSG_PREFIX, self))
                 header_printed = True
-            print('{}: {}'.format(severity.translate(), problem))
+            print('{} {}: {}'.format(BaseCheck.ERROR_MSG_PREFIX, severity.translate(), problem))
         if header_printed:
-            print('')
+            print('{}'.format(BaseCheck.ERROR_MSG_PREFIX))
         self.set_state(CheckState.DONE)
 
     def evaluate_problems(self):
