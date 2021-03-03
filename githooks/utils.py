@@ -33,3 +33,21 @@ def get_extension(file_path):
     if '.' not in file_path:
         return None
     return file_path.rsplit('.', 1)[1]
+
+
+def decode_str(string):
+    """trying decode a string
+
+    first try to decode using utf-8,
+    if error occurred then using gbk, if still fail then return the original string
+
+    :param string: the string to be decoded
+    :return: decoded string
+    """
+    try:
+        return string.decode('utf-8')
+    except UnicodeDecodeError:
+        try:
+            return string.decode('gbk')
+        except UnicodeDecodeError:
+            return string

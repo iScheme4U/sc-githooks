@@ -8,7 +8,7 @@ Portions Copyright (c) 2021 Emre Hasegeli
 from os.path import isabs, join as joinpath, normpath
 from subprocess import check_output
 
-from githooks.utils import get_exe_path, get_extension
+from githooks.utils import get_exe_path, get_extension, decode_str
 
 git_exe_path = get_exe_path('git')
 
@@ -53,14 +53,14 @@ class Commit(object):
 
     def get_new_commit_list(self, branch_name):
         """Get the list of parent new commits in order"""
-        output = check_output([
+        output = decode_str(check_output([
             git_exe_path,
             'rev-list',
             self.commit_id,
             '--not',
             '--all',
             '--reverse',
-        ]).decode('utf-8')
+        ]))
         commit_list = CommitList([], branch_name)
         for commit_id in output.splitlines():
             commit = Commit(commit_id, commit_list)
@@ -86,7 +86,7 @@ class Commit(object):
             elif line.startswith(b'committer '):
                 self._committer = Contributor.parse(line[len(b'committer '):])
         for line in lines:
-            self._message_lines.append(line.decode('utf-8'))
+            self._message_lines.append(decode_str(line))
         self.content_fetched = True
 
     def get_parents(self):
@@ -134,7 +134,7 @@ class Commit(object):
     def get_changed_files(self):
         """Return the list of added or modified files on a commit"""
         if self.changed_files is None:
-            output = check_output([
+            output = decode_str(check_output([
                 git_exe_path,
                 'diff-tree',
                 '-r',
@@ -144,7 +144,7 @@ class Commit(object):
                 '--no-renames',         # Get renames as additions
                 '--diff-filter=AM',     # Only additions and modifications
                 self.commit_id,
-            ]).decode('utf-8')
+            ]))
             changed_files = []
             for line in output.splitlines():
                 line_split = line.split(None, 5)
@@ -161,7 +161,7 @@ class Commit(object):
     def get_binary_files(self):
         """Return the binary files on a commit"""
         if self.binary_files is None:
-            output = check_output([
+            output = decode_str(check_output([
                 git_exe_path,
                 'log',
                 '--pretty=format:%H -M100%',   # pretty format
@@ -171,7 +171,7 @@ class Commit(object):
                 '--no-renames',         # Get renames as additions
                 '--diff-filter=AM',     # Only additions and modifications
                 "{}^!".format(self.commit_id),
-            ]).decode('utf-8')
+            ]))
             binary_files = []
             for line in output.splitlines():
                 line_split = line.split('\t')
@@ -196,7 +196,7 @@ class Contributor(object):
         name, line = line.split(b' <', 1)
         email, line = line.split(b'> ', 1)
         timestamp, line = line.split(b' ', 1)
-        return cls(name.decode('utf-8'), email.decode('utf-8'), int(timestamp))
+        return cls(decode_str(name), decode_str(email), int(timestamp))
 
     def get_email_domain(self):
         return self.email.split('@', 1)[-1]
@@ -281,7 +281,7 @@ class CommittedFile(object):
         if not content.startswith(b'#!'):
             return None
         content = content[len(b'#!'):].strip()
-        return content.split(None, 1)[0].decode('utf-8')
+        return decode_str(content.split(None, 1)[0])
 
     def get_shebang_exe(self):
         """Get the executable from the shebang"""
@@ -292,7 +292,7 @@ class CommittedFile(object):
             rest = self.get_content().splitlines()[0][len(b'#!/usr/bin/env'):]
             rest_split = rest.split(None, 1)
             if rest_split:
-                return rest_split[0].decode('utf-8')
+                return decode_str(rest_split[0])
         return shebang.rsplit('/', 1)[-1]
 
     def get_symlink_target(self):
@@ -303,7 +303,7 @@ class CommittedFile(object):
         content = self.get_content()
         if isabs(content):
             return None
-        path = normpath(joinpath(self.path, '..', content.decode('utf-8')))
+        path = normpath(joinpath(self.path, '..', decode_str(content)))
         if path.startswith('..'):
             return None
         return type(self)(path, self.commit)

@@ -91,8 +91,8 @@ class BaseCheck:
                 print('{} === {} ==='.format(BaseCheck.ERROR_MSG_PREFIX, self))
                 header_printed = True
             print('{} {}: {}'.format(BaseCheck.ERROR_MSG_PREFIX, severity.translate(), problem))
-        if header_printed:
-            print('{}'.format(BaseCheck.ERROR_MSG_PREFIX))
+        # if header_printed:
+        #     print('{}'.format(BaseCheck.ERROR_MSG_PREFIX))
         self.set_state(CheckState.DONE)
 
     def evaluate_problems(self):

@@ -146,6 +146,9 @@ to test this inside a Git repository against last 50 commits::
 Changes
 -------
 
+Version 0.1.7
+    * Fix decode bug
+
 Version 0.1.6
     * Upgrade dependencies
     * Remove logging
