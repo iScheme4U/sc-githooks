@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v0.1.8
+v0.1.8 20210303
 ---------------
 
     - Package some non python files
