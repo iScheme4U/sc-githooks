@@ -142,43 +142,6 @@ to test this inside a Git repository against last 50 commits::
         sed 's:\([^ ]*\) .*:\1 \1 refs/heads/master:' |
         python ../sc-githooks/sc-pre-receive
 
-
-Changes
--------
-
-Version 0.1.7
-    * Fix decode bug
-
-Version 0.1.6
-    * Upgrade dependencies
-    * Remove logging
-    * Add switch commit_check.enabled to control whether or not commit check is enabled
-    * Fix bug: error message is not shown in Gitlab web page
-
-Version 0.1.5
-    * Use `sc-utilities <https://github.com/Scott-Lau/sc-utilities>`_ for logging
-
-Version 0.1.4
-    * Update dependency
-
-Version 0.1.3
-    * Using `sc-config <https://github.com/Scott-Lau/sc-config>`_ utility
-
-Version 0.1.2
-    * Fix a bug where cannot read default.yml configuration file
-    * Add logging
-
-Version 0.1.1
-    * Unique source of version
-    * Use `config42 <https://pypi.org/project/config42/>`_ to read configuration file
-    * Support specifying configurations through file
-
-Version 0.1
-    * Initial version check commit
-    * Add binary file check
-    * Add file extensions check
-    * Add file size check
-
 License
 -------
 
