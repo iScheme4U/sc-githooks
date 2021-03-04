@@ -78,25 +78,33 @@ Here is an example problem output::
 Configuration
 -------------
 
+First, make sure /var/opt/sc directory exists, if not create this directory and make sure current user has the right
+to create files in this directory.
+
 You can copy `default.yml <https://github.com/Scott-Lau/sc-githooks/blob/master/githooks/tests/sample_config/default.yml>`_
 to /var/opt/sc/.sc-githooks/production.yml to initialize the production configuration.
 
-Detailed explanation.
-    * dev.dev_mode
-        * Whether this program is running in development mode
-    * commit_check.enabled
-        * Whether commit check is enabled
-    * commit_check.commit_summary_max_length
-        * The warning threshold of the length of commit summary
-    * commit_check.commit_line_max_length
-        * The threshold of the max length of commit summary and other commit line
-    * commit_check.binary_file_illegal_suffixes
-        * A list of illegal suffixes which cannot be committed to git repository
-    * commit_check.legal_binary_filenames
-        * A list of legal binary file names which can be committed to git repository
-    * commit_check.commit_file_max_size
-        * The max size of a file that can be committed to git repository
+The default configuration file looks like this::
 
+    dev:
+      # Whether this program is running in development mode
+      dev_mode: False
+
+    commit_check:
+      # Whether commit check is enabled
+      enabled: True
+      # The warning threshold of the length of commit summary
+      commit_summary_max_length: 50
+      # The threshold of the max length of commit summary and other commit line
+      commit_line_max_length: 80
+
+      # A list of illegal suffixes which cannot be committed to git repository
+      binary_file_illegal_suffixes: "jar"
+      # A list of legal binary file names which can be committed to git repository
+      legal_binary_filenames: "gradle-wrapper.jar,maven-wrapper.jar"
+
+      # The max size of a file that can be committed to git repository
+      commit_file_max_size: 5242880
 
 Pros and Cons of Pre-receive Hook
 ---------------------------------

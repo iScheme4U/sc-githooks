@@ -64,7 +64,7 @@ setup(
         'sc-config>=0.0.3',
     ],
     package_data={
-        'githooks': ['tests/sample_config/default.yml'],
+        'githooks': ['tests/sample_config/*.yml'],
     },
     include_package_data=True,
 )

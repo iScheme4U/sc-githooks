@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.1.9 20210304
+---------------
+
+    - Update readme for sample configuration section
+
 v0.1.8 20210303
 ---------------
 
