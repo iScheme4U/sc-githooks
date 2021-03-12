@@ -61,7 +61,7 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'sc-config>=0.0.3',
+        'sc-config>=0.0.4',
     ],
     package_data={
         'githooks': ['tests/sample_config/*.yml'],
